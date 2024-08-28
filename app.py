@@ -7,7 +7,7 @@ from posit.connect.errors import ClientError
 import pandas as pd
 
 
-@reactive.effect(priority=1)
+@reactive.effect
 @reactive.event(input.delete_button)
 def on_delete():
     try:
