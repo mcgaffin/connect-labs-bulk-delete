@@ -1,10 +1,10 @@
 import json
-from shiny import reactive
-from shinyswatch import theme
-from shiny.express import input, render, ui
+import pandas as pd
 from posit.connect import Client
 from posit.connect.errors import ClientError
-import pandas as pd
+from shiny import reactive
+from shiny.express import input, render, ui
+from shinyswatch import theme
 
 
 @reactive.effect
@@ -23,12 +23,14 @@ def on_delete():
             duration=10,
         )
 
+
 def is_content_modified():
     with Client(
         api_key="ahF4EwonCpeHVLdByWjtCNmncGvWAc4o", url="http://localhost:3939"
     ) as client:
         find_results = client.content.find()
         return hash(json.dumps(find_results))
+
 
 @reactive.poll(is_content_modified, 1)
 def content():
@@ -47,16 +49,20 @@ def content():
 ui.page_opts(title="Connect Explorer", theme=theme.flatly())
 with ui.layout_columns(col_widths=(12)):
     with ui.card(fill=False):
-        "Actions"
-        ui.input_action_button("delete_button", "Delete", width="100px")
+        ui.input_action_button(
+            "delete_button", "Delete", width="100px", class_="btn-warning"
+        )
 
     with ui.card():
 
         ui.input_text("search_term", "Search", "")
-        "Content"
+
         @render.data_frame
         def results_df():
-            df = pd.DataFrame(content(), columns=["title", "last_deployed_time"])
+            df = pd.DataFrame(
+                content(), columns=["title", "last_deployed_time"]
+            ).rename(columns={"title": "Title", "last_deployed_time": "Last Deployed"})
+
             return render.DataGrid(
                 df,
                 selection_mode="rows",
