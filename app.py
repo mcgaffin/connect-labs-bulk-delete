@@ -1,11 +1,15 @@
 import json
+import os
 import pandas as pd
+from dotenv import load_dotenv
 from posit.connect import Client
 from posit.connect.errors import ClientError
 from shiny import reactive
 from shiny.express import input, render, ui
 from shinyswatch import theme
 
+if os.getenv('RSTUDIO_PRODUCT') != 'CONNECT':
+  load_dotenv
 
 @reactive.effect
 @reactive.event(input.delete_button)
@@ -25,18 +29,14 @@ def on_delete():
 
 
 def is_content_modified():
-    with Client(
-        api_key="ahF4EwonCpeHVLdByWjtCNmncGvWAc4o", url="http://localhost:3939"
-    ) as client:
+    with Client() as client:
         find_results = client.content.find()
         return hash(json.dumps(find_results))
 
 
 @reactive.poll(is_content_modified, 1)
 def content():
-    with Client(
-        api_key="ahF4EwonCpeHVLdByWjtCNmncGvWAc4o", url="http://localhost:3939"
-    ) as client:
+    with Client() as client:
         find_results = client.content.find()
         if len(input.search_term()) == 0:
             return find_results

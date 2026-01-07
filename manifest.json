@@ -6,7 +6,7 @@
     "entrypoint": "app"
   },
   "python": {
-    "version": "3.11.9",
+    "version": "3.11.10",
     "package_manager": {
       "name": "pip",
       "version": "24.2",
@@ -15,12 +15,12 @@
   },
   "files": {
     "requirements.txt": {
-      "checksum": "378b171ccb3c1cc6af74c3be87d9c25d"
+      "checksum": "c1ca31bbdb367f3d01bd82f7c7ade2fe"
     },
     "app.py": {
-      "checksum": "498c43d6d7c5b40ed922eedc9bce4187"
+      "checksum": "42a75a2f238edeb3742a22030c7ce03f"
     },
-    "connect-bulk-delete.toml": {
+    "connect-extension.toml": {
       "checksum": "c51b4b4588ba30653613f46baf5b7ab9"
     }
   }

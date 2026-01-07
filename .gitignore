@@ -1,5 +1,7 @@
 *.pyc
 *.pyo
-__pycache__/
-*.tgz
 *.tar.gz
+*.tgz
+.env
+__pycache__/
+dist/

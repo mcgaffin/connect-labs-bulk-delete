@@ -1,4 +1,0 @@
-name = "connect_bulk_delete"
-title = "Connect - Bulk Delete"
-description = "Delete multiple Connect content items at one time!"
-access_type = "logged_in"
